@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 7233939405766509626}
   - component: {fileID: 7233939405766509624}
   - component: {fileID: 7233939405766509630}
-  - component: {fileID: 7233939405766509625}
+  - component: {fileID: 8707943799097184434}
   - component: {fileID: 6242054443565118874}
   m_Layer: 0
   m_Name: PlayerPrefab
@@ -187,7 +187,7 @@ MonoBehaviour:
     RawGuidValue: 1b54d4d5a3fcc1844a6fb211372a365b
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 7233939405766509625}
+  - {fileID: 8707943799097184434}
   - {fileID: 6242054443565118874}
   SimulationBehaviours: []
 --- !u!143 &7233939405766509630
@@ -208,7 +208,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7233939405766509625
+--- !u!114 &8707943799097184434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,11 +234,11 @@ MonoBehaviour:
     RotBlendStart: 0.1
     RotBlendEnd: 0.5
     RotTeleportRadians: 1.5
-  gravity: -20
-  jumpImpulse: 8
+  gravity: -9.81
+  jumpImpulse: 5
   acceleration: 10
   braking: 10
-  maxSpeed: 2
+  maxSpeed: 4
   rotationSpeed: 15
   _IsGrounded: 0
   _Velocity: {x: 0, y: 0, z: 0}
@@ -255,3 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _prefabBall: {fileID: 2395320923439665753, guid: 39dff5c20d3c1c648aa7fdf8db6b6c32, type: 3}
+  _prefabPhysxBall: {fileID: 8672558203763280524, guid: 54a566355037ccb46a3a858645dc9252, type: 3}
+  _spawned:
+    _value: 0

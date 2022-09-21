@@ -1,22 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Fusion;
+using System;
 
 public class Player : NetworkBehaviour
 {
-    private NetworkCharacterControllerPrototype _cc;
+    [SerializeField] private Ball _prefabBall;
+    [SerializeField] private PhysxBall _prefabPhysxBall;
 
     [Networked] private TickTimer delay { get; set; }
 
-    [SerializeField] private PhysxBall _prefabPhysxBall;
-    [SerializeField] private Ball _prefabBall;
+    private NetworkCharacterControllerPrototype _cc;
     private Vector3 _forward;
 
     private void Awake()
     {
         _cc = GetComponent<NetworkCharacterControllerPrototype>();
         _forward = transform.forward;
+    }
+    private void Update()
+    {
+        if (Object.HasInputAuthority && Input.GetKeyDown(KeyCode.R))
+        {
+            RPC_SendMessage("Hey Mate!");
+        }
+    }
+
+    private Text _messages;
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RPC_SendMessage(string message, RpcInfo info = default)
+    {
+        if (_messages == null)
+        {
+            _messages = FindObjectOfType<Text>();
+        }
+        if (info.IsInvokeLocal)
+        {
+            message = $"You said: {message}\n";
+        }
+        else
+        {
+            message = $"Some other player said: {message}\n";
+            _messages.text += message;
+        }
     }
 
     public override void FixedUpdateNetwork()
@@ -52,4 +81,31 @@ public class Player : NetworkBehaviour
             }
         }
     }
+
+
+    [Networked(OnChanged = nameof(OnBallSpawned))]
+    public NetworkBool spawned { get; set; }
+    public static void OnBallSpawned(Changed<Player> changed)
+    {
+        changed.Behaviour.material.color = Color.white;
+    }
+
+    private Material _material;
+    Material material
+    {
+        get
+        {
+            if (_material == null)
+            {
+                _material = GetComponentInChildren<MeshRenderer>().material;
+            }
+            return _material;
+        }
+    }
+
+    public override void Render()
+    {
+        material.color = Color.Lerp(material.color, Color.blue, Time.deltaTime);
+    }
+
 }
