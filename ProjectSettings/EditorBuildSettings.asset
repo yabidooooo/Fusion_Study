@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01_Scenes/FusionTutorial.unity
+    path: Assets/Scenes/FusionTutorial.unity
     guid: 36e9ac323324b4d4e91c702c6e3a25ee
   m_configObjects: {}
